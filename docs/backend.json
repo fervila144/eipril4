@@ -1,0 +1,118 @@
+
+{
+  "entities": {
+    "Product": {
+      "title": "Product",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "price": { "type": "number" },
+        "stock": { "type": "number" },
+        "imageUrl": { "type": "string", "format": "uri" },
+        "images": { "type": "array", "items": { "type": "string" } },
+        "imageNames": { "type": "array", "items": { "type": "string" } },
+        "category": { "type": "string" },
+        "isHidden": { "type": "boolean" },
+        "isOffer": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "Category": {
+      "title": "Category",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "CarouselSlide": {
+      "title": "CarouselSlide",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "imageUrl": { "type": "string", "format": "uri" },
+        "title": { "type": "string" },
+        "subtitle": { "type": "string" },
+        "order": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "AppearanceSettings": {
+      "title": "AppearanceSettings",
+      "type": "object",
+      "properties": {
+        "primaryColor": { "type": "string" },
+        "fontFamily": { "type": "string" },
+        "logoText": { "type": "string" },
+        "catalogTitle": { "type": "string" },
+        "catalogSubtitle": { "type": "string" },
+        "logoUrl": { "type": "string" },
+        "faviconUrl": { "type": "string" },
+        "whatsappNumber": { "type": "string" },
+        "mercadopagoAlias": { "type": "string" },
+        "hideCarouselOnMobile": { "type": "boolean" }
+      }
+    },
+    "Order": {
+      "title": "Order",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "purchaseCode": { "type": "string" },
+        "customerName": { "type": "string" },
+        "customerSurname": { "type": "string" },
+        "customerDni": { "type": "string" },
+        "customerPhone": { "type": "string" },
+        "customerAddress": { "type": "string" },
+        "customerHouseNumber": { "type": "string" },
+        "customerZipCode": { "type": "string" },
+        "totalPrice": { "type": "number" },
+        "status": { "type": "string", "enum": ["pending", "confirmed"] },
+        "items": { "type": "array" },
+        "shippingLink": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "Admin": {
+      "title": "Admin",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string", "format": "email" },
+        "addedAt": { "type": "string", "format": "date-time" }
+      }
+    }
+  },
+  "auth": {
+    "providers": ["password", "google"]
+  },
+  "firestore": {
+    "/products/{productId}": {
+      "schema": { "$ref": "#/backend/entities/Product" },
+      "description": "Collection storing all catalog products."
+    },
+    "/categories/{categoryId}": {
+      "schema": { "$ref": "#/backend/entities/Category" },
+      "description": "Product categories."
+    },
+    "/carousel/{slideId}": {
+      "schema": { "$ref": "#/backend/entities/CarouselSlide" },
+      "description": "Banners for the homepage carousel."
+    },
+    "/settings/{settingId}": {
+      "schema": { "$ref": "#/backend/entities/AppearanceSettings" },
+      "description": "Application settings including branding."
+    },
+    "/orders/{orderId}": {
+      "schema": { "$ref": "#/backend/entities/Order" },
+      "description": "Customer orders."
+    },
+    "/admins/{email}": {
+      "schema": { "$ref": "#/backend/entities/Admin" },
+      "description": "Authorized administrators list."
+    }
+  }
+}
